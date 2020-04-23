@@ -1,6 +1,7 @@
 package com.dummy.myerp.model.bean.comptabilite;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import org.apache.commons.lang3.ObjectUtils;
 import org.junit.Assert;
@@ -19,6 +20,34 @@ public class EcritureComptableTest {
                                                                     vDebit, vCredit);
         return vRetour;
     }
+
+    @Test
+    public void getterSetter() {
+        EcritureComptable vEcriture;
+        vEcriture = new EcritureComptable();
+        vEcriture.setLibelle("test getset");
+        vEcriture.getListLigneEcriture().add(this.createLigne(1, null, null));
+        vEcriture.getListLigneEcriture().add(this.createLigne(1, null, "33"));
+        vEcriture.setId(1);
+        vEcriture.setDate(new Date(1587543661));
+        JournalComptable journal = new JournalComptable();
+        journal.setCode("codeJournal");
+        journal.setLibelle("journalC");
+        vEcriture.setJournal(journal);
+        vEcriture.setReference("reference");
+
+        Assert.assertEquals(1,vEcriture.getId().intValue());
+        Assert.assertEquals("test getset",vEcriture.getLibelle());
+        Assert.assertEquals(new Date(1587543661),vEcriture.getDate());
+        Assert.assertEquals("journalC", vEcriture.getJournal().getLibelle());
+        Assert.assertEquals("reference",vEcriture.getReference());
+
+        Assert.assertEquals("EcritureComptable{id=1, journal=JournalComptable{code='codeJournal', libelle='journalC'}, reference='reference', date=Mon Jan 19 09:59:03 CET 1970, libelle='test getset', totalDebit=0, totalCredit=33, listLigneEcriture=[\n" +
+                "LigneEcritureComptable{compteComptable=CompteComptable{numero=1, libelle='null'}, libelle='0', debit=null, credit=null}\n" +
+                "LigneEcritureComptable{compteComptable=CompteComptable{numero=1, libelle='null'}, libelle='-33', debit=null, credit=33}\n" +
+                "]}",vEcriture.toString());
+    }
+
     @Test
     public void getTotalDebitNullNull() {
         EcritureComptable vEcriture;

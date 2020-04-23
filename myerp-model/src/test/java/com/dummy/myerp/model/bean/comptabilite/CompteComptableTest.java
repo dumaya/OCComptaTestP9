@@ -11,7 +11,13 @@ import java.util.List;
 
 
 public class CompteComptableTest {
-
+    @Test
+    public void getterSetter() {
+        CompteComptable compte = new CompteComptable(1,"premier compte");
+        Assert.assertEquals(1,compte.getNumero().intValue());
+        Assert.assertEquals("premier compte",compte.getLibelle());
+        Assert.assertEquals("CompteComptable{numero=1, libelle='premier compte'}",compte.toString());
+    }
     @Test
     public void getByNumeroOK() {
         CompteComptable compte1 = new CompteComptable();
