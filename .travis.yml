@@ -3,9 +3,9 @@ language: java
 addons:
   sonarcloud:
     organization: "dumaya"
-    token:
-      secure: "8f9fb7e73d2155442190eca2ab5b6321ecc1be39" # encrypted value of your token
+    #token:
+    #  secure: "8f9fb7e73d2155442190eca2ab5b6321ecc1be39" # encrypted value of your token
 
 script:
   # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
-  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=dumaya_OCComptaTestP9
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.login=8f9fb7e73d2155442190eca2ab5b6321ecc1be39 -Dsonar.projectKey=dumaya_OCComptaTestP9
