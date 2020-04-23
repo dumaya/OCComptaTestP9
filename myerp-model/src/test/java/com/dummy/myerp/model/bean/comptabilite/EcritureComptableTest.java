@@ -21,7 +21,7 @@ public class EcritureComptableTest {
         return vRetour;
     }
 
-    @Test
+    //@Test
     public void getterSetter() {
         EcritureComptable vEcriture;
         vEcriture = new EcritureComptable();
