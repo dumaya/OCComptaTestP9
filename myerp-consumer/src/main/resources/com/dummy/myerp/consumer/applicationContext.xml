@@ -30,14 +30,14 @@
         <property name="targetMethod" value="configure"/>
         <property name="arguments">
             <list>
-                <ref bean="daoProxy"/>
+                <ref bean="DaoProxy"/>
             </list>
         </property>
     </bean>
 
 
     <!-- DaoProxy -->
-    <bean id="daoProxy" class="com.dummy.myerp.consumer.dao.impl.DaoProxyImpl" factory-method="getInstance">
+    <bean id="DaoProxy" class="com.dummy.myerp.consumer.dao.impl.DaoProxyImpl" factory-method="getInstance">
         <property name="comptabiliteDao" ref="ComptabiliteDaoImpl"/>
     </bean>
 
@@ -46,8 +46,7 @@
     <bean id="dataSourceMYERP" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.postgresql.Driver" />
         <property name="url" value="jdbc:postgresql://localhost:5432/myerp" />
-        <property name="username" value="adm_myerp" />
-        <property name="password" value="myerp" />
+        <property name="username" value="postgres" />
         <constructor-arg value="javax.sql.DataSource"/>
     </bean>
 

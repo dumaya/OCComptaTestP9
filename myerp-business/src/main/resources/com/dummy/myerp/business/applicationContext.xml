@@ -18,4 +18,7 @@
 
     <!-- ========== Transaction Managers ========== -->
     <import resource="transactionContext.xml"/>
+
+    <!-- ========== Bean du consumer ========== -->
+    <import resource="classpath:/com/dummy/myerp/consumer/applicationContext.xml"/>
 </beans>
