@@ -1,7 +1,9 @@
 package com.dummy.myerp.business.impl.manager;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -26,7 +28,8 @@ public class ComptabiliteManagerImplTest {
         EcritureComptable vEcritureComptable;
         vEcritureComptable = new EcritureComptable();
         vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
-        vEcritureComptable.setDate(new Date());
+        vEcritureComptable.setDate(new Date(TimeUnit.SECONDS.toMillis(1588164448L)));
+        vEcritureComptable.setReference("AC-2020\\02522");
         vEcritureComptable.setLibelle("Libelle");
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
                 null, new BigDecimal(123),
@@ -43,8 +46,9 @@ public class ComptabiliteManagerImplTest {
             EcritureComptable vEcritureComptable;
             vEcritureComptable = new EcritureComptable();
             vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
-            vEcritureComptable.setDate(new Date());
+            vEcritureComptable.setDate(new Date(TimeUnit.SECONDS.toMillis(1588164448L)));
             vEcritureComptable.setLibelle("Libelle");
+            vEcritureComptable.setReference("AC-2020\\02522");
             vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
                     null, new BigDecimal(123),
                     null));
@@ -67,7 +71,8 @@ public class ComptabiliteManagerImplTest {
             EcritureComptable vEcritureComptable;
             vEcritureComptable = new EcritureComptable();
             vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
-            vEcritureComptable.setDate(new Date());
+            vEcritureComptable.setDate(new Date(TimeUnit.SECONDS.toMillis(1588164448L)));
+            vEcritureComptable.setReference("AC-2020\\02522");
             vEcritureComptable.setLibelle("Libelle");
             vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
                     null, null,
@@ -88,7 +93,8 @@ public class ComptabiliteManagerImplTest {
             EcritureComptable vEcritureComptable;
             vEcritureComptable = new EcritureComptable();
             vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
-            vEcritureComptable.setDate(new Date());
+            vEcritureComptable.setDate(new Date(TimeUnit.SECONDS.toMillis(1588164448L)));
+            vEcritureComptable.setReference("AC-2020\\02522");
             vEcritureComptable.setLibelle("Libelle");
             vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
                     null, null,
@@ -111,7 +117,8 @@ public class ComptabiliteManagerImplTest {
         try { EcritureComptable vEcritureComptable;
         vEcritureComptable = new EcritureComptable();
         vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
-        vEcritureComptable.setDate(new Date());
+        vEcritureComptable.setDate(new Date(TimeUnit.SECONDS.toMillis(1588164448L)));
+        vEcritureComptable.setReference("AC-2020\\02522");
         vEcritureComptable.setLibelle("Libelle");
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
                 null, null,
@@ -134,7 +141,8 @@ public class ComptabiliteManagerImplTest {
         try { EcritureComptable vEcritureComptable;
             vEcritureComptable = new EcritureComptable();
             vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
-            vEcritureComptable.setDate(new Date());
+            vEcritureComptable.setDate(new Date(TimeUnit.SECONDS.toMillis(1588164448L)));
+            vEcritureComptable.setReference("AC-2020\\02522");
             vEcritureComptable.setLibelle("Libelle");
             vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
                     null, new BigDecimal(-123),
@@ -155,7 +163,8 @@ public class ComptabiliteManagerImplTest {
         try { EcritureComptable vEcritureComptable;
             vEcritureComptable = new EcritureComptable();
             vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
-            vEcritureComptable.setDate(new Date());
+            vEcritureComptable.setDate(new Date(TimeUnit.SECONDS.toMillis(1588164448L)));
+            vEcritureComptable.setReference("AC-2020\\02522");
             vEcritureComptable.setLibelle("Libelle");
             vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
                     null, new BigDecimal(123.125),
@@ -179,7 +188,7 @@ public class ComptabiliteManagerImplTest {
         try { EcritureComptable vEcritureComptable;
             vEcritureComptable = new EcritureComptable();
             vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
-            vEcritureComptable.setDate(new Date(1588164448));
+            vEcritureComptable.setDate(new Date(TimeUnit.SECONDS.toMillis(1588164448L)));
             vEcritureComptable.setLibelle("Libelle");
             vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
                     null, new BigDecimal(123.125),
@@ -187,7 +196,7 @@ public class ComptabiliteManagerImplTest {
             vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
                     null, null,
                     new BigDecimal(123.125)));
-            vEcritureComptable.setReference("AC-2010/00001");
+            vEcritureComptable.setReference("AC-2010\\00001");
             manager.checkEcritureComptableUnit(vEcritureComptable);
             Assert.fail();
         }
@@ -203,7 +212,7 @@ public class ComptabiliteManagerImplTest {
         try { EcritureComptable vEcritureComptable;
             vEcritureComptable = new EcritureComptable();
             vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
-            vEcritureComptable.setDate(new Date(1588164448));
+            vEcritureComptable.setDate(new Date(TimeUnit.SECONDS.toMillis(1588164448L)));
             vEcritureComptable.setLibelle("Libelle");
             vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
                     null, new BigDecimal(123.125),
@@ -211,7 +220,7 @@ public class ComptabiliteManagerImplTest {
             vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
                     null, null,
                     new BigDecimal(123.125)));
-            vEcritureComptable.setReference("OP-2020/00001");
+            vEcritureComptable.setReference("OP-2020\\00001");
             manager.checkEcritureComptableUnit(vEcritureComptable);
             Assert.fail();
         }

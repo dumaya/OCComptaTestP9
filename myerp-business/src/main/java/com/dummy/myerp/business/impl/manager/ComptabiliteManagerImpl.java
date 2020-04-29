@@ -172,11 +172,11 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         Integer anneeEcriture = calendar.get(Calendar.YEAR);
-        if (!pEcritureComptable.getReference().substring(1,2).equals(codeJournalEcriture)) {
+        if (!pEcritureComptable.getReference().substring(0,2).equals(codeJournalEcriture)) {
             throw new FunctionalException(
                     "L'écriture comptable est incohérente : Code Journal différent sur l'écriture et dans la référence.");
         }
-        if (!pEcritureComptable.getReference().substring(4,7).equals(anneeEcriture)) {
+        if (!pEcritureComptable.getReference().substring(3,7).equals(anneeEcriture.toString())) {
             throw new FunctionalException(
                     "L'écriture comptable est incohérente : Année différente sur l'écriture et dans la référence.");
         }
