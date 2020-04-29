@@ -13,7 +13,7 @@ services:
   -
 before_script:
   - psql -c 'create database myerp;' -U postgres
-  - psql -c 'create user adm_myerp with password "myerp";' -U postgres
+  - psql -c 'create user adm_myerp with password myerp;' -U postgres
   - psql -c 'grant all privileges on database myerp to adm_myerp;' -U postgres
 
 script:
