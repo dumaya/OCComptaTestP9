@@ -13,7 +13,7 @@ public class SequenceEcritureComptableTest {
         SequenceEcritureComptable sequence = new SequenceEcritureComptable("GK",5,6);
         Assert.assertEquals(5,sequence.getAnnee().intValue());
         Assert.assertEquals(6,sequence.getDerniereValeur().intValue());
-        Assert.assertEquals("SequenceEcritureComptable{annee=5, derniereValeur=6}",sequence.toString());
+        Assert.assertEquals("SequenceEcritureComptable{codeJournal=GK, annee=5, derniereValeur=6}",sequence.toString());
     }
 
 
