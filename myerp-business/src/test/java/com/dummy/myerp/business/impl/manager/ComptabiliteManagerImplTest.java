@@ -192,7 +192,7 @@ public class ComptabiliteManagerImplTest {
             Assert.fail();
         }
         catch (FunctionalException e) {
-            assertThat(e.getMessage()).isEqualTo("L'écriture comptable est incohérente : Année différente sur l'écriture et dans la référence.");
+            assertThat(e.getMessage()).isEqualTo("L'écriture comptable ne respecte pas les règles de gestion.");
         } catch (Exception ex) {
             Assert.fail();
         }
@@ -216,7 +216,7 @@ public class ComptabiliteManagerImplTest {
             Assert.fail();
         }
         catch (FunctionalException e) {
-            assertThat(e.getMessage()).isEqualTo("L'écriture comptable est incohérente : Code Journal différent sur l'écriture et dans la référence.");
+            assertThat(e.getMessage()).isEqualTo("L'écriture comptable ne respecte pas les règles de gestion.");
         } catch (Exception ex) {
             Assert.fail();
         }
