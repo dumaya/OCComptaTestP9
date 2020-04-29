@@ -5,6 +5,7 @@ import java.util.List;
 import com.dummy.myerp.model.bean.comptabilite.CompteComptable;
 import com.dummy.myerp.model.bean.comptabilite.EcritureComptable;
 import com.dummy.myerp.model.bean.comptabilite.JournalComptable;
+import com.dummy.myerp.model.bean.comptabilite.SequenceEcritureComptable;
 import com.dummy.myerp.technical.exception.NotFoundException;
 
 
@@ -80,4 +81,26 @@ public interface ComptabiliteDao {
      * @param pId l'id de l'écriture
      */
     void deleteEcritureComptable(Integer pId);
+
+    /**
+     * Cherche la séquence la plus haute pour un code journal et une année {@code pCodeJournal}.
+     *
+     * @param pCodeJournal code journal
+     * @param pAnnee année
+     */
+    Integer selectLastSequenceEcritureComptable (String pCodeJournal, Integer pAnnee) throws NotFoundException;
+
+    /**
+     * Insert une nouvelle Sequence écriture comptable.
+     *
+     * @param pSequenceEcritureComptable -
+     */
+    void insertSequenceEcritureComptable(SequenceEcritureComptable pSequenceEcritureComptable);
+
+    /**
+     * Update une Sequence écriture comptable.
+     *
+     * @param pSequenceEcritureComptable -
+     */
+    void updateSequenceEcritureComptable(SequenceEcritureComptable pSequenceEcritureComptable);
 }

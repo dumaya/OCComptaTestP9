@@ -173,4 +173,53 @@ public class ComptabiliteManagerImplTest {
         }
     }
 
+    /** RG5 : Test de cohérence */
+    @Test
+    public void checkLigneEcritureCoherenceAnneeRG5() {
+        try { EcritureComptable vEcritureComptable;
+            vEcritureComptable = new EcritureComptable();
+            vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
+            vEcritureComptable.setDate(new Date(1588164448));
+            vEcritureComptable.setLibelle("Libelle");
+            vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
+                    null, new BigDecimal(123.125),
+                    null));
+            vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
+                    null, null,
+                    new BigDecimal(123.125)));
+            vEcritureComptable.setReference("AC-2010/00001");
+            manager.checkEcritureComptableUnit(vEcritureComptable);
+            Assert.fail();
+        }
+        catch (FunctionalException e) {
+            assertThat(e.getMessage()).isEqualTo("L'écriture comptable est incohérente : Année différente sur l'écriture et dans la référence.");
+        } catch (Exception ex) {
+            Assert.fail();
+        }
+    }
+    /** RG5 : Test de cohérence */
+    @Test
+    public void checkLigneEcritureCoherenceCodeJournalRG5() {
+        try { EcritureComptable vEcritureComptable;
+            vEcritureComptable = new EcritureComptable();
+            vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
+            vEcritureComptable.setDate(new Date(1588164448));
+            vEcritureComptable.setLibelle("Libelle");
+            vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
+                    null, new BigDecimal(123.125),
+                    null));
+            vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
+                    null, null,
+                    new BigDecimal(123.125)));
+            vEcritureComptable.setReference("OP-2020/00001");
+            manager.checkEcritureComptableUnit(vEcritureComptable);
+            Assert.fail();
+        }
+        catch (FunctionalException e) {
+            assertThat(e.getMessage()).isEqualTo("L'écriture comptable est incohérente : Code Journal différent sur l'écriture et dans la référence.");
+        } catch (Exception ex) {
+            Assert.fail();
+        }
+    }
+
 }

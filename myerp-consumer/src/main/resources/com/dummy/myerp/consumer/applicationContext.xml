@@ -46,7 +46,8 @@
     <bean id="dataSourceMYERP" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.postgresql.Driver" />
         <property name="url" value="jdbc:postgresql://localhost:5432/myerp" />
-        <property name="username" value="postgres" />
+        <property name="username" value="adm_myerp" />
+        <property name="password" value="myerp" />
         <constructor-arg value="javax.sql.DataSource"/>
     </bean>
 

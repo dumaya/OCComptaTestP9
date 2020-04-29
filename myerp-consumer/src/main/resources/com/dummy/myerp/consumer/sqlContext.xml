@@ -10,6 +10,30 @@
     <!-- ========== ComptabiliteDaoImpl ========== -->
     <bean id="ComptabiliteDaoImpl" class="com.dummy.myerp.consumer.dao.impl.db.dao.ComptabiliteDaoImpl"
           factory-method="getInstance">
+        <property name="SQLgetLastSequenceEcritureComptable">
+            <value>
+                SELECT derniere_valeur FROM sequence_
+                WHERE journal_code = :codeJournal
+                AND annee = :annee
+            </value>
+        </property>
+        <property name="SQLinsertSequenceEcritureComptable">
+            <value>
+                INSERT INTO sequence_ (
+                journal_code, annee, derniere_valeur
+                ) VALUES (
+                :codeJournal, :annee, :derniereValeur
+                )
+            </value>
+        </property>
+        <property name="SQLupdateSequenceEcritureComptable">
+            <value>
+                UPDATE myerp.sequence_ecriture_comptable SET
+                derniere_valeur = :derniereValeur
+                WHERE journal_code = :codeJournal
+                AND annee = :annee
+            </value>
+        </property>
         <property name="SQLgetListCompteComptable">
             <value>
                 SELECT * FROM myerp.compte_comptable
