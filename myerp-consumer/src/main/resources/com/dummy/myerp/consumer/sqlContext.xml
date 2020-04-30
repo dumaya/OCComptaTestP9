@@ -12,14 +12,14 @@
           factory-method="getInstance">
         <property name="SQLgetLastSequenceEcritureComptable">
             <value>
-                SELECT derniere_valeur FROM sequence_
+                SELECT derniere_valeur FROM myerp.sequence_ecriture_comptable
                 WHERE journal_code = :codeJournal
                 AND annee = :annee
             </value>
         </property>
         <property name="SQLinsertSequenceEcritureComptable">
             <value>
-                INSERT INTO sequence_ (
+                INSERT INTO myerp.sequence_ecriture_comptable (
                 journal_code, annee, derniere_valeur
                 ) VALUES (
                 :codeJournal, :annee, :derniereValeur

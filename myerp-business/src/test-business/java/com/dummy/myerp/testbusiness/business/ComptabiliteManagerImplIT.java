@@ -50,10 +50,11 @@ public class ComptabiliteManagerImplIT extends BusinessTestCase {
      * suivi de l'année et d'un numéro de séquence (propre à chaque journal) sur 5 chiffres incrémenté automatiquement à chaque écriture.
      * Le formatage de la référence est : XX-AAAA/#####.
      */
+    @Test
     public void checkFormatEcritureReferenceRG5() {
         EcritureComptable vEcritureComptable;
         vEcritureComptable = new EcritureComptable();
-        vEcritureComptable.setJournal(new JournalComptable("PL", "Achat"));
+        vEcritureComptable.setJournal(new JournalComptable("OD", "Achat"));
         vEcritureComptable.setDate(new Date());
         vEcritureComptable.setLibelle("Libelle");
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),

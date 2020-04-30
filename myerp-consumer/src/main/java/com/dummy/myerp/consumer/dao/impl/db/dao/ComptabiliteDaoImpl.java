@@ -297,7 +297,7 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
         vSqlParams.addValue("codeJournal", pSequenceEcritureComptable.getCodeJournal());
         vSqlParams.addValue("annee", pSequenceEcritureComptable.getAnnee());
         vSqlParams.addValue("derniereValeur", pSequenceEcritureComptable.getDerniereValeur());
-        vJdbcTemplate.update(SQLupdateEcritureComptable, vSqlParams);
+        vJdbcTemplate.update(SQLupdateSequenceEcritureComptable, vSqlParams);
     }
 
     /** SQLinsertSequenceEcritureComptable */
