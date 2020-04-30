@@ -12,7 +12,7 @@
           factory-method="getInstance">
         <property name="SQLgetLastSequenceEcritureComptable">
             <value>
-                SELECT derniere_valeur FROM myerp.sequence_ecriture_comptable
+                SELECT derniere_valeur FROM MYERP.sequence_ecriture_comptable
                 WHERE journal_code = :codeJournal
                 AND annee = :annee
             </value>
