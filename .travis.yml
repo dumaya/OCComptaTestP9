@@ -16,9 +16,9 @@ before_script:
   - psql -c "create user adm_myerp with password 'myerp';" -U postgres
   - psql -f 'dump.sql' -U postgres
   - psql -c 'grant all privileges on database myerp to adm_myerp;' -U postgres
-  - psql -c 'GRANT USAGE ON SCHEMA myerp TO adm_myerp;'
-  - psql -c 'GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA myerp to adm_myerp;'
-  - psql -c 'GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA myerp TO adm_myerp;'
+  - psql -c 'GRANT USAGE ON SCHEMA myerp TO adm_myerp;' -U postgres
+  - psql -c 'GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA myerp to adm_myerp;' -U postgres
+  - psql -c 'GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA myerp TO adm_myerp;' -U postgres
 
 script:
   # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
