@@ -16,6 +16,7 @@ before_script:
   - psql -c "create user adm_myerp with password 'myerp';" -U postgres
   - psql -f 'dump.sql' -U postgres
   - psql -c 'grant all privileges on database myerp to adm_myerp;' -U postgres
+  - PGPASSWORD=myerp psql -c "SELECT derniere_valeur FROM myerp.sequence_ecriture_comptable WHERE journal_code ='AC'and annee=2016;" -U adm_myerp
 
 script:
   # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
