@@ -1,4 +1,4 @@
-CREATE SCHEMA MYERP;
+CREATE SCHEMA myerp;
 
 CREATE TABLE MYERP.journal_comptable (
                 code VARCHAR(5) NOT NULL,
