@@ -115,6 +115,7 @@ public class ComptabiliteManagerImplIT extends BusinessTestCase {
             Assert.fail();
         } catch (FunctionalException  e) {
             e.printStackTrace();
+            assertThat(true);
         } catch (NotFoundException e) {
             Assert.fail();
             e.printStackTrace();
