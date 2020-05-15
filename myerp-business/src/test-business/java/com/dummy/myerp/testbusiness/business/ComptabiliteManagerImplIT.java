@@ -20,10 +20,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ComptabiliteManagerImplIT extends BusinessTestCase {
 
-    //@BeforeAll
-    //public void before() {
-    //    SpringRegistry.init();
-    //}
+    /**
+     * Constructeur.
+     */
+    public ComptabiliteManagerImplIT() {
+        super();
+    }
+
 
     /** RG6 : La référence d'une écriture comptable doit être unique, il n'est pas possible de créer plusieurs écritures ayant la même référence. */
      @Test

@@ -8,8 +8,6 @@ addons:
     #token:
     #  secure: "8f9fb7e73d2155442190eca2ab5b6321ecc1be39" # encrypted value of your token
 
-sudo: required
-
 services: docker
 
 before_install:
@@ -26,7 +24,5 @@ script:
   - cd docker/dev
   - docker-compose stop
   - docker-compose rm -f
-  - docker-compose up -d
-  - docker ps -a
-  - cd ../../
+
 
