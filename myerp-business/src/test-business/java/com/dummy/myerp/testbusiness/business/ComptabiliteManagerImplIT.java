@@ -24,7 +24,6 @@ public class ComptabiliteManagerImplIT extends BusinessTestCase {
     //public void before() {
     //    SpringRegistry.init();
     //}
-    private ComptabiliteManagerImpl manager = new ComptabiliteManagerImpl();
 
     /** RG6 : La référence d'une écriture comptable doit être unique, il n'est pas possible de créer plusieurs écritures ayant la même référence. */
      @Test
