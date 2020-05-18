@@ -1,15 +1,17 @@
 package com.dummy.myerp.testbusiness.business;
 
-import com.dummy.myerp.business.impl.manager.ComptabiliteManagerImpl;
 import com.dummy.myerp.model.bean.comptabilite.CompteComptable;
 import com.dummy.myerp.model.bean.comptabilite.EcritureComptable;
 import com.dummy.myerp.model.bean.comptabilite.JournalComptable;
 import com.dummy.myerp.model.bean.comptabilite.LigneEcritureComptable;
 import com.dummy.myerp.technical.exception.FunctionalException;
 import com.dummy.myerp.technical.exception.NotFoundException;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeAll;
+import org.springframework.transaction.TransactionStatus;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -27,6 +29,12 @@ public class ComptabiliteManagerImplIT extends BusinessTestCase {
         super();
     }
 
+    private static TransactionStatus vTS;
+
+    @Before
+    public void before() {
+        vTS = getTransactionManager().beginTransactionMyERP();
+    }
 
     /** RG6 : La référence d'une écriture comptable doit être unique, il n'est pas possible de créer plusieurs écritures ayant la même référence. */
      @Test
@@ -80,8 +88,8 @@ public class ComptabiliteManagerImplIT extends BusinessTestCase {
         String ref2 = vEcritureComptable.getReference();
         Integer sequenceRef2 = Integer.valueOf(ref2.substring(9,13));
         assertThat(sequenceRef2).isEqualTo(sequenceRef1 + 1);
-        assertThat(ref1).matches("\\S{1,2}-\\d{4}\\\\\\d{5}");
-        assertThat(ref2).matches("\\S{1,2}-\\d{4}\\\\\\d{5}");
+        assertThat(ref1).matches("\\S{1,2}-\\d{4}\\/\\d{5}");
+        assertThat(ref2).matches("\\S{1,2}-\\d{4}\\/\\d{5}");
     }
 
     /** Test cas passant check Ecriture comptable context */
@@ -91,7 +99,7 @@ public class ComptabiliteManagerImplIT extends BusinessTestCase {
         vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
         vEcritureComptable.setDate(new Date(TimeUnit.SECONDS.toMillis(1588164448L)));
         vEcritureComptable.setLibelle("Libelle");
-        vEcritureComptable.setReference("AC-2020\\02522");
+        vEcritureComptable.setReference("AC-2020/02522");
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
                 null, new BigDecimal(123),
                 null));
@@ -113,6 +121,7 @@ public class ComptabiliteManagerImplIT extends BusinessTestCase {
     public void checkcheckEcritureComptableContextKO() {
         try {
             EcritureComptable vECRef = getDaoProxy().getComptabiliteDao().getEcritureComptableByRef("BQ-2016/00003");
+            vECRef.setId(-4);
             SpringRegistry.getBusinessProxy().getComptabiliteManager().checkEcritureComptable(vECRef);
             Assert.fail();
         } catch (FunctionalException  e) {
@@ -128,7 +137,7 @@ public class ComptabiliteManagerImplIT extends BusinessTestCase {
     public void checkAddReferenceNonTrouvé() {
         EcritureComptable vEcritureComptable = new EcritureComptable();
         vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
-        vEcritureComptable.setDate(new Date(TimeUnit.SECONDS.toMillis(1588164448L)));
+        vEcritureComptable.setDate(new Date(TimeUnit.SECONDS.toMillis(364054988L)));
         vEcritureComptable.setLibelle("Libelle");
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
                 null, new BigDecimal(123),
@@ -140,15 +149,28 @@ public class ComptabiliteManagerImplIT extends BusinessTestCase {
                 null, null,
                 new BigDecimal(121)));
         SpringRegistry.getBusinessProxy().getComptabiliteManager().addReference(vEcritureComptable);
-        assertThat(vEcritureComptable.getReference()).contains("AC");
-        assertThat(vEcritureComptable.getReference()).contains("2020");
+        assertThat(vEcritureComptable.getReference()).contains("AC-1981/00001");
     }
     /** Test cas passant add reference (ref trouvée) */
     @Test
     public void checkAddReferenceTrouvé() {
+        EcritureComptable vEcritureComptable0 = new EcritureComptable();
+        vEcritureComptable0.setJournal(new JournalComptable("AC", "Achat"));
+        vEcritureComptable0.setDate(new Date(TimeUnit.SECONDS.toMillis(364054988L)));
+        vEcritureComptable0.setLibelle("Libelle");
+        vEcritureComptable0.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
+                null, new BigDecimal(123),
+                null));
+        vEcritureComptable0.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
+                null, null,
+                new BigDecimal(2)));
+        vEcritureComptable0.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(3),
+                null, null,
+                new BigDecimal(121)));
+        SpringRegistry.getBusinessProxy().getComptabiliteManager().addReference(vEcritureComptable0);
         EcritureComptable vEcritureComptable = new EcritureComptable();
-        vEcritureComptable.setJournal(new JournalComptable("VE", "Vente"));
-        vEcritureComptable.setDate(new Date(TimeUnit.SECONDS.toMillis(1463229921L)));
+        vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
+        vEcritureComptable.setDate(new Date(TimeUnit.SECONDS.toMillis(364054988L)));
         vEcritureComptable.setLibelle("Libelle");
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
                 null, new BigDecimal(123),
@@ -160,7 +182,11 @@ public class ComptabiliteManagerImplIT extends BusinessTestCase {
                 null, null,
                 new BigDecimal(121)));
         SpringRegistry.getBusinessProxy().getComptabiliteManager().addReference(vEcritureComptable);
-        assertThat(vEcritureComptable.getReference()).contains("VE");
-        assertThat(vEcritureComptable.getReference()).contains("2016");
+        assertThat(vEcritureComptable.getReference()).contains("AC-1981/00002");
+    }
+
+    @After
+    public void clean() {
+        getTransactionManager().rollbackMyERP(vTS);
     }
 }
