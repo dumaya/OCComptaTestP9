@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import com.dummy.myerp.business.contrat.BusinessProxy;
+import com.dummy.myerp.business.impl.BusinessProxyImpl;
 import org.junit.Assert;
 import org.junit.Test;
 import com.dummy.myerp.model.bean.comptabilite.CompteComptable;

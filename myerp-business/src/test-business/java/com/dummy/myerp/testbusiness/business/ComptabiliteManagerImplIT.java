@@ -14,7 +14,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.springframework.transaction.TransactionStatus;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static com.dummy.myerp.consumer.ConsumerHelper.getDaoProxy;
@@ -183,6 +185,68 @@ public class ComptabiliteManagerImplIT extends BusinessTestCase {
                 new BigDecimal(121)));
         SpringRegistry.getBusinessProxy().getComptabiliteManager().addReference(vEcritureComptable);
         assertThat(vEcritureComptable.getReference()).contains("AC-1981/00002");
+    }
+
+    /** Test insert ecriture comptable */
+    @Test
+    public void checkInsertEcriture() {
+        EcritureComptable vEcritureComptable0 = new EcritureComptable();
+        vEcritureComptable0.setJournal(new JournalComptable("OD", "Achat"));
+        vEcritureComptable0.setDate(new Date(TimeUnit.SECONDS.toMillis(364054988L)));
+        vEcritureComptable0.setLibelle("Libelle");
+        vEcritureComptable0.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(411),
+                null, new BigDecimal(123),
+                null));
+        vEcritureComptable0.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(411),
+                null, null,
+                new BigDecimal(2)));
+        vEcritureComptable0.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(401),
+                null, null,
+                new BigDecimal(121)));
+        SpringRegistry.getBusinessProxy().getComptabiliteManager().addReference(vEcritureComptable0);
+        List<EcritureComptable> listEcritureComptable = SpringRegistry.getBusinessProxy().getComptabiliteManager().getListEcritureComptable();
+        int nbLigneAvant = listEcritureComptable.size();
+        try {
+            SpringRegistry.getBusinessProxy().getComptabiliteManager().insertEcritureComptable(vEcritureComptable0);
+            SpringRegistry.getBusinessProxy().getComptabiliteManager().checkEcritureComptable(vEcritureComptable0);
+            assertThat(SpringRegistry.getBusinessProxy().getComptabiliteManager().getListEcritureComptable().size()).isEqualTo(nbLigneAvant+1);
+
+        } catch (FunctionalException e) {
+            e.printStackTrace();
+            Assert.fail("L'insert n'a pas fonctionné");
+        }
+    }
+
+    /** Test insert ecriture comptable */
+    @Test
+    public void checkInsertUpdateDeleteEcriture() {
+        EcritureComptable vEcritureComptable = new EcritureComptable();
+        vEcritureComptable.setJournal(new JournalComptable("BQ", "Banque"));
+        vEcritureComptable.setDate(new Date(TimeUnit.SECONDS.toMillis(364054988L)));
+        vEcritureComptable.setLibelle("Libelle");
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(411),
+                null, new BigDecimal(123),
+                null));
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(411),
+                null, null,
+                new BigDecimal(2)));
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(401),
+                null, null,
+                new BigDecimal(121)));
+        SpringRegistry.getBusinessProxy().getComptabiliteManager().addReference(vEcritureComptable);
+        List<EcritureComptable> listEcritureComptable = SpringRegistry.getBusinessProxy().getComptabiliteManager().getListEcritureComptable();
+        int nbLigneAvant = listEcritureComptable.size();
+        try {
+            SpringRegistry.getBusinessProxy().getComptabiliteManager().insertEcritureComptable(vEcritureComptable);
+            vEcritureComptable.setLibelle("Update libelle");
+            SpringRegistry.getBusinessProxy().getComptabiliteManager().updateEcritureComptable(vEcritureComptable);
+            SpringRegistry.getBusinessProxy().getComptabiliteManager().checkEcritureComptable(vEcritureComptable);
+            SpringRegistry.getBusinessProxy().getComptabiliteManager().deleteEcritureComptable(vEcritureComptable.getId());
+            assertThat(SpringRegistry.getBusinessProxy().getComptabiliteManager().getListEcritureComptable().size()).isEqualTo(nbLigneAvant);
+        } catch (FunctionalException e) {
+            e.printStackTrace();
+            Assert.fail("L'insert + update n'a pas fonctionné");
+        }
     }
 
     @After
