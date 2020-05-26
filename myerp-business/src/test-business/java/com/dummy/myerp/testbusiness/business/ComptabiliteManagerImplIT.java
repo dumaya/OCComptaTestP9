@@ -39,7 +39,7 @@ public class ComptabiliteManagerImplIT extends BusinessTestCase {
     }
 
     /** RG6 : La référence d'une écriture comptable doit être unique, il n'est pas possible de créer plusieurs écritures ayant la même référence. */
-     @Test
+    @Test
     public void checkRefUniqueEcritureReferenceRG6() {
         EcritureComptable vEcritureComptable;
         vEcritureComptable = new EcritureComptable();
