@@ -1,9 +1,6 @@
 package com.dummy.myerp.testconsumer.consumer;
 
-import com.dummy.myerp.model.bean.comptabilite.CompteComptable;
-import com.dummy.myerp.model.bean.comptabilite.EcritureComptable;
-import com.dummy.myerp.model.bean.comptabilite.JournalComptable;
-import com.dummy.myerp.model.bean.comptabilite.LigneEcritureComptable;
+import com.dummy.myerp.model.bean.comptabilite.*;
 import com.dummy.myerp.technical.exception.FunctionalException;
 import com.dummy.myerp.technical.exception.NotFoundException;
 import org.junit.After;
@@ -11,7 +8,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.runner.RunWith;
 import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -27,6 +26,7 @@ public class ComptabiliteDaoImplIT extends ConsumerTestCase {
     /**
      * Constructeur.
      */
+
     public ComptabiliteDaoImplIT() {
         super();
     }
@@ -150,17 +150,40 @@ public class ComptabiliteDaoImplIT extends ConsumerTestCase {
         }
     }
 
-    /** Test  selectLastSequence  */
+    /** Test  maj Sequence  */
     @Test
-    public void  selectLastSequenceEcritureComptableTest() {
-
+    public void  majSequenceEcritureComptableTest() {
+        // test insert
+        SequenceEcritureComptable seq = new SequenceEcritureComptable("OD",1000,0);
+        getComptabiliteDaoImpl().insertSequenceEcritureComptable(seq);
         try {
-            Integer sequence = getComptabiliteDaoImpl().selectLastSequenceEcritureComptable("OD",2016);
-            assertThat(sequence).isGreaterThanOrEqualTo(88);
+            assertThat(getComptabiliteDaoImpl().selectLastSequenceEcritureComptable("OD",1000)).isEqualTo(0);
         } catch (NotFoundException e) {
+            Assert.fail();
             e.printStackTrace();
         }
 
+        // test update
+        seq.setDerniereValeur(1);
+        try {
+            getComptabiliteDaoImpl().updateSequenceEcritureComptable(seq);
+            assertThat(getComptabiliteDaoImpl().selectLastSequenceEcritureComptable("OD",1000)).isEqualTo(1);
+        } catch (NotFoundException e) {
+            Assert.fail();
+            e.printStackTrace();
+        }
+
+        //test delete
+
+        getComptabiliteDaoImpl().deleteSequenceEcritureComptable(seq.getCodeJournal(),seq.getAnnee());
+
+        try {
+            getComptabiliteDaoImpl().selectLastSequenceEcritureComptable("OD",1000);
+            Assert.fail();
+        } catch (NotFoundException e) {
+            e.printStackTrace();
+        }
     }
+
 
 }

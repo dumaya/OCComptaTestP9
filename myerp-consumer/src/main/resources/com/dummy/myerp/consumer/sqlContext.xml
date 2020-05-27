@@ -34,6 +34,13 @@
                 AND annee = :annee
             </value>
         </property>
+        <property name="SQLdeleteSequenceEcritureComptable">
+            <value>
+                DELETE FROM myerp.sequence_ecriture_comptable
+                WHERE journal_code = :codeJournal
+                AND annee = :annee
+            </value>
+        </property>
         <property name="SQLgetListCompteComptable">
             <value>
                 SELECT * FROM myerp.compte_comptable
