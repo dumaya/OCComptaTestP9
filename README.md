@@ -1,21 +1,21 @@
 # MYERP : API de compta 
 
-##Contexte
+## Contexte
 Cette application MyERP a été complétée par l'ajout de tests par Alexis Dumay dans le cadre de son parcours developpeur d'application Java effectué avec OpenClassrooms en 2020.
 
-##Contenu
+## Contenu
 API de Comptabilité
 
-##Pré-requis
+## Pré-requis
 Version de Java : 1.8
 JDK : jdk1.8.0_201
 Maven 3.6
 
-##Badges SONAR
+## Badges SONAR
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=dumaya_OCComptaTestP9&metric=alert_status)](https://sonarcloud.io/dashboard?id=dumaya_OCComptaTestP9)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=dumaya_OCComptaTestP9&metric=coverage)](https://sonarcloud.io/dashboard?id=dumaya_OCComptaTestP9)
 
-##Installation et déploiement
+## Installation et déploiement
 Les composants nécessaires lors du développement sont disponibles via des conteneurs docker. L'environnement de développement est assemblé grâce à docker-compose (cf docker/dev/docker-compose.yml).
 
 Il comporte :
