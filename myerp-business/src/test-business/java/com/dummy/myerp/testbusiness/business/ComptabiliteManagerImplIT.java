@@ -121,16 +121,18 @@ public class ComptabiliteManagerImplIT extends BusinessTestCase {
     /** Test cas non passant check Ecriture comptable context  */
     @Test
     public void checkcheckEcritureComptableContextKO() {
+        EcritureComptable vECRef = null;
         try {
-            EcritureComptable vECRef = getDaoProxy().getComptabiliteDao().getEcritureComptableByRef("BQ-2016/00003");
-            vECRef.setId(-4);
+            vECRef = getDaoProxy().getComptabiliteDao().getEcritureComptableByRef("BQ-2016/00003");
+        } catch (NotFoundException e) {
+            e.printStackTrace();
+            Assert.fail();
+        }
+        vECRef.setId(-4);
+        try {
             SpringRegistry.getBusinessProxy().getComptabiliteManager().checkEcritureComptable(vECRef);
             Assert.fail();
         } catch (FunctionalException  e) {
-            e.printStackTrace();
-            assertThat(true);
-        } catch (NotFoundException e) {
-            Assert.fail();
             e.printStackTrace();
         }
     }
