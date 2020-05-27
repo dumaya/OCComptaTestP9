@@ -108,6 +108,59 @@ public class ComptabiliteDaoImplIT extends ConsumerTestCase {
         assertThat(ecritureComptable.getListLigneEcriture().size()).isEqualTo(3);
     }
 
+    /** Test  insert ecriture, insert ligne ecriture, update delete de la même ecriture  */
+    @Test
+    public void  majEcritureTest() {
+        //test insert
 
+        EcritureComptable vEcritureComptable = new EcritureComptable();
+        vEcritureComptable.setJournal(new JournalComptable("OD", "Achat"));
+        vEcritureComptable.setDate(new Date(TimeUnit.SECONDS.toMillis(364054988L)));
+        vEcritureComptable.setLibelle("Libelle");
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(411),
+                null, new BigDecimal(123),
+                null));
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(411),
+                null, null,
+                new BigDecimal(2)));
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(401),
+                null, null,
+                new BigDecimal(121)));
+        getComptabiliteDaoImpl().insertEcritureComptable(vEcritureComptable);
+
+        assertThat(vEcritureComptable.getId()).isNotNull();
+        // test update
+        vEcritureComptable.setLibelle("libelle maj");
+        vEcritureComptable.getListLigneEcriture().get(0).setCredit(new BigDecimal(55));
+
+        getComptabiliteDaoImpl().updateEcritureComptable(vEcritureComptable);
+
+        assertThat(vEcritureComptable.getLibelle()).isEqualTo("libelle maj");
+        assertThat(vEcritureComptable.getListLigneEcriture().get(0).getCredit()).isEqualByComparingTo(new BigDecimal(55));
+
+        // Test delete
+        getComptabiliteDaoImpl().deleteEcritureComptable(vEcritureComptable.getId());
+
+        EcritureComptable ecritureComptable;
+        try {
+            ecritureComptable = getComptabiliteDaoImpl().getEcritureComptable(vEcritureComptable.getId());
+            Assert.fail();
+        } catch (NotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /** Test  selectLastSequence  */
+    @Test
+    public void  selectLastSequenceEcritureComptableTest() {
+
+        try {
+            Integer sequence = getComptabiliteDaoImpl().selectLastSequenceEcritureComptable("OD",2016);
+            assertThat(sequence).isGreaterThanOrEqualTo(88);
+        } catch (NotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 }
