@@ -11,6 +11,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 import org.springframework.transaction.TransactionStatus;
 
 import java.math.BigDecimal;
@@ -21,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 
 import static com.dummy.myerp.consumer.ConsumerHelper.getDaoProxy;
 import static org.assertj.core.api.Assertions.assertThat;
-
+@RunWith(JUnit4.class)
 public class ComptabiliteManagerImplIT extends BusinessTestCase {
 
     /**
