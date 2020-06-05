@@ -1,24 +1,15 @@
 package com.dummy.myerp.testconsumer.consumer;
 
 import com.dummy.myerp.model.bean.comptabilite.*;
-import com.dummy.myerp.technical.exception.FunctionalException;
 import com.dummy.myerp.technical.exception.NotFoundException;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.runner.RunWith;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import static com.dummy.myerp.consumer.ConsumerHelper.getDaoProxy;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ComptabiliteDaoImplIT extends ConsumerTestCase {
@@ -30,6 +21,7 @@ public class ComptabiliteDaoImplIT extends ConsumerTestCase {
     public ComptabiliteDaoImplIT() {
         super();
     }
+
 
     /** Test getListCompteComptable */
     @Test
@@ -107,83 +99,5 @@ public class ComptabiliteDaoImplIT extends ConsumerTestCase {
         getComptabiliteDaoImpl().loadListLigneEcriture(ecritureComptable);
         assertThat(ecritureComptable.getListLigneEcriture().size()).isEqualTo(3);
     }
-
-    /** Test  insert ecriture, insert ligne ecriture, update delete de la même ecriture  */
-    @Test
-    public void  majEcritureTest() {
-        //test insert
-
-        EcritureComptable vEcritureComptable = new EcritureComptable();
-        vEcritureComptable.setJournal(new JournalComptable("OD", "Achat"));
-        vEcritureComptable.setDate(new Date(TimeUnit.SECONDS.toMillis(364054988L)));
-        vEcritureComptable.setLibelle("Libelle");
-        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(411),
-                null, new BigDecimal(123),
-                null));
-        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(411),
-                null, null,
-                new BigDecimal(2)));
-        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(401),
-                null, null,
-                new BigDecimal(121)));
-        getComptabiliteDaoImpl().insertEcritureComptable(vEcritureComptable);
-
-        assertThat(vEcritureComptable.getId()).isNotNull();
-        // test update
-        vEcritureComptable.setLibelle("libelle maj");
-        vEcritureComptable.getListLigneEcriture().get(0).setCredit(new BigDecimal(55));
-
-        getComptabiliteDaoImpl().updateEcritureComptable(vEcritureComptable);
-
-        assertThat(vEcritureComptable.getLibelle()).isEqualTo("libelle maj");
-        assertThat(vEcritureComptable.getListLigneEcriture().get(0).getCredit()).isEqualByComparingTo(new BigDecimal(55));
-
-        // Test delete
-        getComptabiliteDaoImpl().deleteEcritureComptable(vEcritureComptable.getId());
-
-        EcritureComptable ecritureComptable;
-        try {
-            ecritureComptable = getComptabiliteDaoImpl().getEcritureComptable(vEcritureComptable.getId());
-            Assert.fail();
-        } catch (NotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /** Test  maj Sequence  */
-    @Test
-    public void  majSequenceEcritureComptableTest() {
-        // test insert
-        SequenceEcritureComptable seq = new SequenceEcritureComptable("OD",1000,0);
-        getComptabiliteDaoImpl().insertSequenceEcritureComptable(seq);
-        try {
-            assertThat(getComptabiliteDaoImpl().selectLastSequenceEcritureComptable("OD",1000)).isEqualTo(0);
-        } catch (NotFoundException e) {
-            Assert.fail();
-            e.printStackTrace();
-        }
-
-        // test update
-        seq.setDerniereValeur(1);
-        try {
-            getComptabiliteDaoImpl().updateSequenceEcritureComptable(seq);
-            assertThat(getComptabiliteDaoImpl().selectLastSequenceEcritureComptable("OD",1000)).isEqualTo(1);
-        } catch (NotFoundException e) {
-            Assert.fail();
-            e.printStackTrace();
-        }
-
-        //test delete
-
-        getComptabiliteDaoImpl().deleteSequenceEcritureComptable(seq.getCodeJournal(),seq.getAnnee());
-
-        try {
-            getComptabiliteDaoImpl().selectLastSequenceEcritureComptable("OD",1000);
-            Assert.fail();
-        } catch (NotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
 
 }
