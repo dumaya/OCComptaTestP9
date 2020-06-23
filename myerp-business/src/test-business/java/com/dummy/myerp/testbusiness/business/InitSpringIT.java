@@ -13,7 +13,7 @@ import static org.junit.Assert.assertNotNull;
 public class InitSpringIT extends BusinessTestCase {
 
     /**
-     * Constructeur.
+     * Constructeur
      */
     public InitSpringIT() {
         super();
