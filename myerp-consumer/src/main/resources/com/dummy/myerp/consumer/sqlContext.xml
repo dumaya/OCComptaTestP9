@@ -12,14 +12,14 @@
           factory-method="getInstance">
         <property name="SQLgetLastSequenceEcritureComptable">
             <value>
-                SELECT derniere_valeur FROM sequence_
+                SELECT derniere_valeur FROM MYERP.sequence_ecriture_comptable
                 WHERE journal_code = :codeJournal
                 AND annee = :annee
             </value>
         </property>
         <property name="SQLinsertSequenceEcritureComptable">
             <value>
-                INSERT INTO sequence_ (
+                INSERT INTO myerp.sequence_ecriture_comptable (
                 journal_code, annee, derniere_valeur
                 ) VALUES (
                 :codeJournal, :annee, :derniereValeur
@@ -30,6 +30,13 @@
             <value>
                 UPDATE myerp.sequence_ecriture_comptable SET
                 derniere_valeur = :derniereValeur
+                WHERE journal_code = :codeJournal
+                AND annee = :annee
+            </value>
+        </property>
+        <property name="SQLdeleteSequenceEcritureComptable">
+            <value>
+                DELETE FROM myerp.sequence_ecriture_comptable
                 WHERE journal_code = :codeJournal
                 AND annee = :annee
             </value>
@@ -82,7 +89,7 @@
         <property name="SQLinsertListLigneEcritureComptable">
             <value>
                 INSERT INTO myerp.ligne_ecriture_comptable (
-                    ecriture_id, ligne_id, compte_comptable_numero, libelle, debit
+                    ecriture_id, ligne_id, compte_comptable_numero, libelle, debit,
                     credit
                 ) VALUES (
                     :ecriture_id, :ligne_id, :compte_comptable_numero, :libelle, :debit,

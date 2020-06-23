@@ -103,4 +103,12 @@ public interface ComptabiliteDao {
      * @param pSequenceEcritureComptable -
      */
     void updateSequenceEcritureComptable(SequenceEcritureComptable pSequenceEcritureComptable);
+
+    /**
+     * Delete une Sequence écriture comptable.
+     *
+     * @param pCodeJournal code journal
+     * @param pAnnee année
+     */
+    void deleteSequenceEcritureComptable(String pCodeJournal, Integer pAnnee);
 }

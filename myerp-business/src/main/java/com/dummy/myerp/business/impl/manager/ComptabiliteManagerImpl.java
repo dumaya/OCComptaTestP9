@@ -100,11 +100,11 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
      */
     private String buildReference(EcritureComptable pEcritureComptable, Integer annee, Integer prochaineSequence) {
         StringBuilder ref = new StringBuilder();
-        //Format d'une reference : CO-2018\00001
+        //Format d'une reference : CO-2018/00001
         ref.append(pEcritureComptable.getJournal().getCode());
         ref.append("-");
         ref.append(annee);
-        ref.append("\\");
+        ref.append("/");
         DecimalFormat df = new DecimalFormat("00000");
         String prochaineSequenceAsString = df.format(prochaineSequence);
         ref.append(prochaineSequenceAsString);
@@ -114,7 +114,6 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
     /**
      * {@inheritDoc}
      */
-    // TODO à tester
     @Override
     public void checkEcritureComptable(EcritureComptable pEcritureComptable) throws FunctionalException {
         this.checkEcritureComptableUnit(pEcritureComptable);

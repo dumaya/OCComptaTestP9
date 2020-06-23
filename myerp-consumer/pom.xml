@@ -135,6 +135,14 @@
                             </execution>
                         </executions>
                     </plugin>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <includes>
+                                <include>**/*IT</include>
+                            </includes>
+                        </configuration>
+                    </plugin>
                 </plugins>
                 <testResources>
                     <testResource>
